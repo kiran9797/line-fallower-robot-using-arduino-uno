@@ -80,7 +80,7 @@ pinMode (echoPin, INPUT);
 myservo.attach(servopin);  
   
 } 
-
+//driver code
 void loop() { 
 duration = pulseIn(11, HIGH); 
 distanceCm= duration*0.0340/2;  
