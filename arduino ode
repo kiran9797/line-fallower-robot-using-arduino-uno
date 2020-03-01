@@ -1,0 +1,98 @@
+
+#include <Servo.h>
+Servo myservo;  
+int pos = 120; 
+int servopin = 8;
+int motorA1 = 5; // Pin  2 of L293
+int motorA2 = 6; // Pin  7 of L293
+int motorB1 = 9; // Pin 10 of L293
+int motorB2 = 10; // Pin 14 of L293
+int vel = 255; // Speed Of Motors (0-255)
+int state = '0'; // Initialise Motors
+const int trigPin=13;  // defines the pin numbers
+const int echoPin=11;
+long duration;                // defines variables
+int distanceCm, distanceInch;
+
+void forward()
+{
+   analogWrite(motorA1, 0); 
+   analogWrite(motorA2, vel); 
+   analogWrite(motorB1, 0); 
+   analogWrite(motorB2, vel); 
+}
+
+void stoprobo()
+{
+  analogWrite(motorA1, 0); 
+  analogWrite(motorA2, 0); 
+  analogWrite(motorB1, 0); 
+  analogWrite(motorB2, 0); 
+
+}
+
+void right()
+{
+  analogWrite(motorA1, 0); 
+  analogWrite(motorA2, 0); 
+  analogWrite(motorB1, 0); 
+  analogWrite(motorB2, 0); 
+
+}
+
+void left()// have to change the motor vals according to the rotations
+{
+  analogWrite(motorA1, 0); 
+  analogWrite(motorA2, 0); 
+  analogWrite(motorB1, 0); 
+  analogWrite(motorB2, 0); 
+
+}
+
+void servoleft()//rotate servo left
+
+{
+  for (pos = 115; pos <= 180; pos += 1) 
+  {
+    myservo.write(pos);
+    delay(100);                     
+  }  
+}
+
+
+void servoright()//rotate servo right
+{
+  for (pos = 125; pos >= 70; pos -= 1) 
+  {
+    myservo.write(pos);             
+    delay(100);                      
+  }
+}
+
+
+void setup() { 
+pinMode(motorA1, OUTPUT);
+pinMode(motorA2, OUTPUT);
+pinMode(motorB1, OUTPUT);
+pinMode(motorB2, OUTPUT);
+pinMode (trigPin, OUTPUT);
+pinMode (echoPin, INPUT);
+myservo.attach(servopin);  
+  
+} 
+
+void loop() { 
+duration = pulseIn(11, HIGH); 
+distanceCm= duration*0.0340/2;  
+distanceInch = duration*0.0133/2;
+
+  if (distanceCm > 20)
+    {
+      forward();
+    }
+  else
+    {
+      stoprobo();
+    }
+    delay(10);
+}
